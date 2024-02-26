@@ -1,0 +1,232 @@
+<html>
+
+<head>
+    <title> Quiz-Game </title>
+    <link rel="Stylesheet" href="C:\Users\SANKARII DHANABALAN\OneDrive\Desktop\FRONTEND\PROJECT\quiz\style.css">
+</head>
+
+<body>
+    <img="" alt="img" id="img" class="img">
+        <h1 id="title"> Today's Quiz </h1>
+
+        <div id="quizContainer">
+            <div class="questions">
+                <h2 id="question" onclick="displayQuestion()"></h2>
+                <ol type="A">
+                    <li class="option"><span id="option0" onclick="calcScore(this)"></span></li>
+                    <li class="option"><span id="option1" onclick="calcScore(this)"></span></li>
+                    <li class="option"><span id="option2" onclick="calcScore(this)"></span></li>
+                    <li class="option"><span id="option3" onclick="calcScore(this)"></span></li>
+                </ol>
+                <h4 id="stat"></h4>
+            </div>
+
+            <div class="buttons">
+                <button type="button" class="previous" id="previous">Previous</button>
+                <button type="button" class="next" id="next">Next</button>
+
+
+            </div>
+
+        </div>
+
+        <div id="scoreboard">
+            <!-- <img src="" alt=""> -->
+            <h2 id="score-title"> Your score</h2>
+            <h2 id="score"></h2>
+            <button type="button" id="score-btn" onclick="backToQuiz()">Back To Quiz</button>
+            <button type="button" id="check-answer" onclick="checkAnswer()">Check Answers</button>
+
+        </div>
+
+
+        <div id="answerBank">
+            <h2>Answers : </h2>
+            <ol type="1" id="answers">
+            </ol>
+            <button type="button" id="score-btn" onclick="backToQuiz()">Back To Quiz</button>
+
+        </div>
+
+
+        <script>
+            var a = [
+                {
+
+                    question: 'Entomology is the science that studies',
+                    option: ['Behavior of human beings', 'Insects', 'The origin and history of technical and scientific terms', 'The formation of rocks'],
+                    answer: 'Insects'
+
+                },
+
+                {
+
+                    question: 'Hitler party which came into power in 1933 is known as',
+                    option: ['Labour Party', 'Nazi Party', 'Ku-Klux-Klan', 'Democratic Party'],
+                    answer: 'Nazi Party'
+                },
+
+                {
+
+                    question: 'FFC stands for',
+                    option: ['Foreign Finance Corporation', 'Federation of Football Council', 'Film Finance Corporation', 'None of the above'],
+                    answer: 'Film Finance Corporation'
+
+                },
+
+                {
+
+                    question: 'Which of the following is a non metal that remains liquid at room temperature?',
+                    option: ['Phosphorous', 'Bromine', 'Chlorine', 'Helium'],
+                    answer: 'Bromine'
+
+                },
+
+                {
+
+                    question: 'Which of the following metals forms an amalgam with other metals?',
+                    option: ['Tin', 'Mercury', 'Lead', 'Zinc'],
+                    answer: 'Mercury'
+
+                },
+
+                {
+
+                    question: 'The gas usually filled in the electric bulb is',
+                    option: ['nitrogen', 'hydrogen', 'carbon dioxide', 'oxygen'],
+                    answer: 'nitrogen'
+
+                },
+
+                {
+
+                    question: 'The Centre for Cellular and Molecular Biology is situated at',
+                    option: ['Patna', 'Jaipur', 'Hyderabad', 'New Delhi'],
+                    answer: 'Hyderabad'
+
+                },
+
+                {
+
+                    question: 'Wadia Institute of Himalayan Geology is located at',
+                    option: ['Delhi', 'Shimla', 'Dehradun', 'Kulu'],
+                    answer: 'Dehradun'
+
+                },
+
+                {
+
+                    question: 'The Indian Institute of Science is located at',
+                    option: ['Kerala', 'Madras', 'Bangalore', 'New Delhi'],
+                    answer: 'Bangalore'
+                },
+
+                {
+
+                    question: 'Where is the National Institute of Virology situated?',
+                    option: ['Pune', 'Delhi', 'Kolkata', 'Madras'],
+                    answer: 'Pune'
+
+                }
+            ]
+
+
+            var b = document.getElementById("question");
+            var c = document.getElementById("quiz-container");
+            var d = document.getElementById("scorecard");
+
+            var a1 = document.getElementById("option0");
+            var b1 = document.getElementById("option1");
+            var c1 = document.getElementById("option2");
+            var d1 = document.getElementById("option3");
+
+            var n = document.getElementById("next");
+            var m = document.getElementById("previous");
+
+            var p = document.getElementById("score");
+            var s = document.querySelectorAll("span");
+
+            var j = 0;
+            var score = 0;
+
+            for (var k = 0; k < s.length; k++) {
+                    s[k].style.background = "none";
+                }
+            function displayQuestion() {
+                console.log(a,b,c,d,a1,b1,c1,d1,n,m,j,p,s);
+                b.innerHTML = "Q." + (j + 1) + " " + a[j].question;
+
+                a1.innerHTML = a[j].option[0];
+                b1.innerHTML = a[j].option[1];
+                c1.innerHTML = a[j].option[2];
+                d1.innerHTML = a[j].option[3];
+
+                stat.innerHTML = "Question" + " " + (j + 1) + " " + "0f" + " " + a.length;
+
+            }
+
+
+            function calcScore(e) {
+                if (e.innerHTML == a[j].answer && score < a.length) {
+                    score = score + 1;
+                    document.getElementById(e.id).style.background = "limegreen";
+                }
+                else {
+                    document.getElementById(e.id).style.background = "tomato";
+                }
+                setTimeout(nxtques, 1000);
+            }
+
+            var nxtques = function nextquestion() {
+                if (j < a.length - 1) {
+                    j =  j + 1;
+                    document.getElementById("option0").style.background = "none";
+                    document.getElementById("option1").style.background = "none";
+                    document.getElementById("option2").style.background = "none";
+                    document.getElementById("option3").style.background = "none";
+                    displayQuestion();
+                }
+                else {
+                    scoreboard.style.display = "block";
+                    p.innerHTML = score + "/" + a.length;
+                    quizContainer.style.display = "none";
+
+                }
+            }
+            n.addEventListener("click", nxtques);
+
+            var prvques = function previousQuestion() {
+                if (j < a.length - 1 && j!==0) {
+                    j =  j - 1;
+                    displayQuestion();
+                }
+            }
+            m.addEventListener("click", prvques);
+
+            function backToQuiz() {
+                location.reload();
+
+            }
+
+            function checkAnswer() {
+                var ansb = document.getElementById("answerBank");
+                var ans = document.getElementById("answers");
+                ansb.style.display = "block";
+                scoreboard.style.display = "none";
+                for (var i = 0; i < a.length; i++) {
+                    var list = document.createElement("li");
+                    list.innerHTML = a[i].answer;
+                    answers.appendChild(list);
+
+                }
+
+            }
+            displayQuestion();
+
+
+        </script>
+
+
+</body>
+
+</html>
